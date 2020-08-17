@@ -3,5 +3,5 @@ class User {
   String username;
   String about;
 
-  User (this.userID, this.username, this.about);
+  User ({this.userID, this.username, this.about});
 }
