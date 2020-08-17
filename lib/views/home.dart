@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  @override 
+  @override
   HomeState createState() => HomeState();
 }
 
 class HomeState extends State<Home> {
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Коп Суйлобо')),
     );
   }
 }

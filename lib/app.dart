@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import 'views/home.dart';
-import 'views/authorize.dart';
+import 'views/login.dart';
 import 'models/user-model.dart';
 import 'style.dart';
 
@@ -13,6 +13,10 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
+  Map<String, WidgetBuilder> routes() {
+    return <String, WidgetBuilder>{"/Home": (BuildContext context) => Home()};
+  }
+
   SharedPreferences sharedPreferences;
   bool loggedIn = false;
   User user;
@@ -49,7 +53,7 @@ class AppState extends State<App> {
     if (loggedIn) {
       return Home();
     } else {
-      return Authorize();
+      return Login();
     }
   }
 
@@ -58,6 +62,7 @@ class AppState extends State<App> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: home(),
+        routes: routes(),
         theme: ThemeData(
             primaryColor: primaryColor,
             scaffoldBackgroundColor: scaffoldBackgroundColor,
