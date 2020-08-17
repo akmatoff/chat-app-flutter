@@ -43,10 +43,11 @@ class LoginState extends State<Login> {
           onPressed: () async {
             String username = usernameController.text;
             String password = passwordController.text;
-            var res = login(username, password);
+            var res = await login(username, password);
             if (res != null) {
               sharedPreferences = await SharedPreferences.getInstance();
               sharedPreferences.setBool('logged_in', true);
+              sharedPreferences.setString('token', res);
               Navigator.pushReplacementNamed(context, '/Home');
             } else {
               alertDialog(
