@@ -11,7 +11,7 @@ class RegisterState extends State<Register> {
   final passwordController = TextEditingController();
   final passwordConfirmController = TextEditingController();
 
-  String apiURL = 'localhost:3000';
+  String apiURL = 'https://chat-app-nodejs.akmatoff.repl.co';
 
   // Dialog for sending message to the user if error
   void alertDialog(String title, String text) {
@@ -24,7 +24,7 @@ class RegisterState extends State<Register> {
 
   // Sign up, send request to the API
   Future<int> signUp(String username, String password) async {
-    Response res = await post('$apiURL/signup',
+    Response res = await post('$apiURL/user/signup',
         body: {"username": username, "password": password});
     return res.statusCode;
   }

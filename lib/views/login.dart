@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +18,7 @@ class LoginState extends State<Login> {
   final passwordController = TextEditingController();
   SharedPreferences sharedPreferences;
 
-  String apiURL = 'localhost:3000';
+  String apiURL = 'https://chat-app-nodejs.akmatoff.repl.co';
 
   // Dialog for sending message to the user if error
   void alertDialog(String title, String text) {
@@ -27,11 +29,14 @@ class LoginState extends State<Login> {
         });
   }
 
-  Future<String> login(String username, String password) async {
-    Response res = await post('$apiURL/login',
+  Future<Map<String, dynamic>> login(String username, String password) async {
+    Response res = await post('$apiURL/user/login',
         body: {'username': username, 'password': password});
 
-    if (res.statusCode == 200) return res.body;
+    if (res.statusCode == 200) {
+      Map<String, dynamic> result = jsonDecode(res.body);
+      return result;
+    }
     return null;
   }
 
@@ -41,13 +46,14 @@ class LoginState extends State<Login> {
         appBar: AppBar(title: Text('Авторизация')),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            String username = usernameController.text;
-            String password = passwordController.text;
+            String username = usernameController.text.trim();
+            String password = passwordController.text.trim();
             var res = await login(username, password);
-            if (res != null) {
+            if (res != null && username != '' && password != '') {
               sharedPreferences = await SharedPreferences.getInstance();
               sharedPreferences.setBool('logged_in', true);
-              sharedPreferences.setString('token', res);
+              sharedPreferences.setString('user', jsonEncode(res));
+              print(res);
               Navigator.pushReplacementNamed(context, '/Home');
             } else {
               alertDialog(

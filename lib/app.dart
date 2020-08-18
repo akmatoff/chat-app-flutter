@@ -39,12 +39,13 @@ class AppState extends State<App> {
       var userLoad = jsonDecode(sharedPreferences.getString("user"));
       // Create an instance of user from sharedPrefs
       user = User(
-          userID: userLoad['userID'],
+          userID: userLoad['user_id'],
           username: userLoad['username'],
           about: userLoad['about']);
 
       setState(() {
         loggedIn = true;
+        print(user);
       });
     }
   }
