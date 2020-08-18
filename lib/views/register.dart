@@ -56,6 +56,7 @@ class RegisterState extends State<Register> {
               if (res == 201) {
                 alertDialog(
                     'Поздравляем!', 'Пользователь был создан. Авторизуйтесь!');
+                Navigator.of(context).pushNamed('/Home');
               } else if (res == 409) {
                 alertDialog('Пользователь уже существует',
                     'Введите другой логин или авторизуйтесь.');
