@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'register.dart';
-
 import '../style.dart';
+import '../widgets/widgets.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -19,15 +19,6 @@ class LoginState extends State<Login> {
   SharedPreferences sharedPreferences;
 
   String apiURL = 'https://chat-app-nodejs.akmatoff.repl.co';
-
-  // Dialog for sending message to the user if error
-  void alertDialog(String title, String text) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(title: Text(title), content: Text(text));
-        });
-  }
 
   Future<Map<String, dynamic>> login(String username, String password) async {
     Response res = await post('$apiURL/user/login',
@@ -56,8 +47,8 @@ class LoginState extends State<Login> {
               print(res);
               Navigator.pushReplacementNamed(context, '/Home');
             } else {
-              alertDialog(
-                  'Ошибка при авторизации', 'Неверный логин или пароль.');
+              alertDialog('Ошибка при авторизации',
+                  'Неверный логин или пароль.', context);
             }
           },
           child: Icon(Icons.send),

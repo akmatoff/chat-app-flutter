@@ -13,3 +13,9 @@ TextStyle linkTextStyle = TextStyle(
 
 TextStyle defaultTextStyle =
     TextStyle(color: textColor, letterSpacing: 0.8, fontSize: 18.0);
+
+TextStyle defaultBoldTextStyle = TextStyle(
+    color: textColor,
+    letterSpacing: 1.2,
+    fontSize: 18.0,
+    fontWeight: FontWeight.bold);

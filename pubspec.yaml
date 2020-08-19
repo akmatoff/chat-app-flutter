@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   socket_io_client: ^0.9.11
-  scoped_model: ^1.0.1
+  flutter_simple_dependency_injection: ^1.0.3
   shared_preferences: ^0.5.8
   http: ^0.12.2
 

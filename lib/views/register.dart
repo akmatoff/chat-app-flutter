@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
+import '../widgets/widgets.dart';
+
 class Register extends StatefulWidget {
   @override
   RegisterState createState() => RegisterState();
@@ -14,13 +16,6 @@ class RegisterState extends State<Register> {
   String apiURL = 'https://chat-app-nodejs.akmatoff.repl.co';
 
   // Dialog for sending message to the user if error
-  void alertDialog(String title, String text) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(title: Text(title), content: Text(text));
-        });
-  }
 
   // Sign up, send request to the API
   Future<int> signUp(String username, String password) async {
@@ -42,27 +37,27 @@ class RegisterState extends State<Register> {
             // Verification
             if (username.length < 4) {
               alertDialog('Слишком короткий логин',
-                  'Логин должен содержать как минимум 4 символа');
+                  'Логин должен содержать как минимум 4 символа', context);
             } else if (password.length < 6) {
               alertDialog('Слишком короткий пароль',
-                  'Пароль должен содержать как минимум 6 символов');
+                  'Пароль должен содержать как минимум 6 символов', context);
             } else if (passwordConfirm != password) {
               alertDialog('Пароли не совпадают',
-                  'Введите одинаковые пароли для подтверждения.');
+                  'Введите одинаковые пароли для подтверждения.', context);
             } else {
               int res = await signUp(username, password);
 
               // Check response code and alert user
               if (res == 201) {
-                alertDialog(
-                    'Поздравляем!', 'Пользователь был создан. Авторизуйтесь!');
-                Navigator.of(context).pushNamed('/Home');
+                alertDialog('Поздравляем!',
+                    'Пользователь был создан. Авторизуйтесь!', context);
+                Navigator.of(context).pushReplacementNamed('/Home');
               } else if (res == 409) {
                 alertDialog('Пользователь уже существует',
-                    'Введите другой логин или авторизуйтесь.');
+                    'Введите другой логин или авторизуйтесь.', context);
               } else {
-                alertDialog(
-                    'Неизвестная ошибка', 'Произошла неизвестная ошибка.');
+                alertDialog('Неизвестная ошибка',
+                    'Произошла неизвестная ошибка.', context);
               }
             }
           },
