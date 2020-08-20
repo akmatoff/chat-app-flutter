@@ -45,7 +45,6 @@ class AppState extends State<App> {
 
       setState(() {
         loggedIn = true;
-        print(user);
       });
     }
   }
