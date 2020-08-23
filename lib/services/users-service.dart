@@ -4,7 +4,7 @@ import 'package:chatAppFlutter/models/user-model.dart';
 import 'package:http/http.dart';
 
 class UsersService {
-  final String usersUrl = 'https://chat-app-nodejs.akmatoff.repl.co/user/users';
+  String usersUrl = 'https://chat-app-nodejs.akmatoff.repl.co/user/users';
 
   Future<List<User>> getUsers() async {
     Response res = await get(usersUrl, headers: {
@@ -13,10 +13,13 @@ class UsersService {
     });
 
     if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(utf8.decode(res.bodyBytes));
+      var body = jsonDecode(res.body);
 
+      List<dynamic> bodyUsers = body['users'].toList();
       List<User> users =
-          body.map((dynamic item) => User.fromJson(item)).toList();
+          bodyUsers.map((dynamic item) => User.fromJson(item)).toList();
+
+      print('HTTP: 200 / OK');
 
       return users;
     } else {

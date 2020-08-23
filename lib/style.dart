@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 Color primaryColor = Color(0xFFa83252);
 Color scaffoldBackgroundColor = Color(0xFFF1F1F1);
 Color textColor = Color(0xFF222222);
+Color textColorWhite = Colors.white;
+Color searchBarTextColor = Colors.grey[300];
 
 TextStyle linkTextStyle = TextStyle(
     color: textColor,
@@ -13,6 +15,9 @@ TextStyle linkTextStyle = TextStyle(
 
 TextStyle defaultTextStyle =
     TextStyle(color: textColor, letterSpacing: 0.8, fontSize: 18.0);
+
+TextStyle searchBarTextStyle =
+    TextStyle(color: searchBarTextColor, letterSpacing: 0.8, fontSize: 14.0);
 
 TextStyle defaultBoldTextStyle = TextStyle(
     color: textColor,
