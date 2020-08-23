@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import 'views/home.dart';
-import 'views/login.dart';
+import 'screens/home.dart';
+import 'screens/login.dart';
 import 'models/user-model.dart';
 import 'style.dart';
+import 'routes.dart';
 
 class App extends StatefulWidget {
   @override
@@ -13,10 +14,6 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  Map<String, WidgetBuilder> routes() {
-    return <String, WidgetBuilder>{"/Home": (BuildContext context) => Home()};
-  }
-
   SharedPreferences sharedPreferences;
   bool loggedIn = false;
   User user;

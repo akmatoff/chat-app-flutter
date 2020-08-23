@@ -23,7 +23,13 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Коп Суйлобо')),
+        appBar: AppBar(title: Text('Коп Суйлобо'), actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            iconSize: 30.0,
+            onPressed: () => Navigator.of(context).pushNamed("/Users"),
+          )
+        ]),
         body: Container(
             child: ListView.builder(
           itemCount: chats.length,
