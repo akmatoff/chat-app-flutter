@@ -4,6 +4,6 @@ import 'screens/screens.dart';
 Map<String, WidgetBuilder> routes() {
   return <String, WidgetBuilder>{
     "/Home": (BuildContext context) => Home(),
-    "/Users": (BuildContext context) => UsersFutureBuilder()
+    "/Users": (BuildContext context) => Users()
   };
 }

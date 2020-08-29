@@ -4,60 +4,57 @@ import 'package:chatAppFlutter/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class UsersFutureBuilder extends StatefulWidget {
-  @override
-  _UsersFutureBuilderState createState() => _UsersFutureBuilderState();
-}
-
-class _UsersFutureBuilderState extends State<UsersFutureBuilder> {
-  UsersService usersService = UsersService();
-  List<User> users;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: FutureBuilder(
-      future: usersService.getUsers(),
-      builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
-        if (snapshot.hasData) {
-          users = snapshot.data;
-          return Users(users: users);
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Ошибка при загрузке'));
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
-    ));
-  }
-}
-
 class Users extends StatefulWidget {
-  final List<User> users;
-
-  Users({@required this.users});
-
   @override
   UsersState createState() => UsersState();
 }
 
 class UsersState extends State<Users> {
   final searchController = TextEditingController();
-  UsersFutureBuilder usersFutureBuilder = UsersFutureBuilder();
+  // UsersFutureBuilder usersFutureBuilder = UsersFutureBuilder();
   UsersService usersService = UsersService();
+  List<User> users;
+
+  @override
+  void initState() {
+    users = [];
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    print('Users: $users');
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: TextField(
-        autofocus: true,
-        style: searchBarTextStyle,
-        decoration: InputDecoration.collapsed(
-            hintText: 'Поиск...',
-            border: InputBorder.none,
-            hintStyle: searchBarTextStyle),
-      )),
-    );
+        appBar: AppBar(
+            title: TextField(
+          autofocus: true,
+          onChanged: (text) {
+            fetchData(text);
+          },
+          style: searchBarTextStyle,
+          decoration: InputDecoration.collapsed(
+              hintText: 'Поиск...',
+              border: InputBorder.none,
+              hintStyle: searchBarTextStyle),
+        )),
+        body: ListView.builder(
+            itemBuilder: (BuildContext context, int i) {
+              return ListTile(
+                  title: Text(usersService.users[i].username,
+                      style: defaultTextStyle));
+            },
+            itemCount: usersService.users.length));
+  }
+
+  fetchData(String username) {
+    setState(() {
+      usersService.getUsersFiltered(username);
+    });
+    print('filtering');
   }
 }
