@@ -3,6 +3,7 @@ import 'package:chatAppFlutter/services/users-service.dart';
 import 'package:chatAppFlutter/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'screens.dart';
 
 class Users extends StatefulWidget {
   @override
@@ -45,17 +46,23 @@ class UsersState extends State<Users> {
         body: ListView.builder(
             itemBuilder: (BuildContext context, int i) {
               return ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                  title: Text(usersService.users[i].username,
-                      style: defaultTextStyle));
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => Chat(
+                        userID: users[i].userID,
+                        username: users[i].username,
+                        about: users[i].about))),
+                contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
+                title: Text(users[i].username, style: defaultTextStyle),
+              );
             },
-            itemCount: usersService.users.length));
+            itemCount: users.length));
   }
 
   fetchData(String username) {
+    usersService.getUsersFiltered(username);
     setState(() {
-      usersService.getUsersFiltered(username);
+      users = usersService.users;
     });
     print('filtering');
   }

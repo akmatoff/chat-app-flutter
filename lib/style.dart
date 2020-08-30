@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Color primaryColor = Color(0xFFa83252);
+Color primaryColor = Color(0xFF39ad89);
 Color scaffoldBackgroundColor = Color(0xFFF1F1F1);
-Color textColor = Color(0xFF222222);
+Color textColor = Color(0xFF333333);
 Color textColorWhite = Colors.white;
 Color searchBarTextColor = Colors.grey[300];
 
@@ -17,6 +17,7 @@ TextStyle linkTextStyle = TextStyle(
 TextStyle defaultTextStyle = TextStyle(
     color: textColor,
     letterSpacing: 0.8,
+    decoration: TextDecoration.none,
     fontSize: 18.0,
     fontFamily: 'Merriweather');
 
@@ -31,4 +32,17 @@ TextStyle defaultBoldTextStyle = TextStyle(
     letterSpacing: 1.2,
     fontSize: 18.0,
     fontWeight: FontWeight.bold,
+    fontFamily: 'Merriweather');
+
+TextStyle inputHintTextStyle = TextStyle(
+    color: searchBarTextColor,
+    letterSpacing: 0.8,
+    decoration: TextDecoration.none,
+    fontSize: 14.0,
+    fontFamily: 'Merriweather');
+
+TextStyle inputTextStyle = TextStyle(
+    color: textColorWhite,
+    letterSpacing: 0.8,
+    fontSize: 14.0,
     fontFamily: 'Merriweather');
