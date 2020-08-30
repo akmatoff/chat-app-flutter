@@ -45,6 +45,8 @@ class UsersState extends State<Users> {
         body: ListView.builder(
             itemBuilder: (BuildContext context, int i) {
               return ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                   title: Text(usersService.users[i].username,
                       style: defaultTextStyle));
             },

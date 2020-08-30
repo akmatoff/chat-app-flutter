@@ -11,16 +11,24 @@ TextStyle linkTextStyle = TextStyle(
     letterSpacing: 0.9,
     fontSize: 12.0,
     decoration: TextDecoration.underline,
-    decorationColor: textColor);
+    decorationColor: textColor,
+    fontFamily: 'Merriweather');
 
-TextStyle defaultTextStyle =
-    TextStyle(color: textColor, letterSpacing: 0.8, fontSize: 18.0);
+TextStyle defaultTextStyle = TextStyle(
+    color: textColor,
+    letterSpacing: 0.8,
+    fontSize: 18.0,
+    fontFamily: 'Merriweather');
 
-TextStyle searchBarTextStyle =
-    TextStyle(color: searchBarTextColor, letterSpacing: 0.8, fontSize: 14.0);
+TextStyle searchBarTextStyle = TextStyle(
+    color: searchBarTextColor,
+    letterSpacing: 0.8,
+    fontSize: 14.0,
+    fontFamily: 'Merriweather');
 
 TextStyle defaultBoldTextStyle = TextStyle(
     color: textColor,
     letterSpacing: 1.2,
     fontSize: 18.0,
-    fontWeight: FontWeight.bold);
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Merriweather');

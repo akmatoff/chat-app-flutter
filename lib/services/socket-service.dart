@@ -24,11 +24,20 @@ class SocketService {
     Message message;
     Chat chat;
     socket.on('receive-message', (msg) {
-      sender = User(userID: msg.userID, username: msg.senderName);
+      sender = User(userID: msg.senderID, username: msg.senderName);
       message = Message(senderID: sender.userID, text: msg.text);
       chat = Chat(messages: [message], users: {'sender': sender});
       chats.add(chat);
     });
     return chats;
+  }
+
+  sendMessage(int senderID, String senderName, int receiverID, String message) {
+    socket.emit('send-message', (msg) {
+      msg.senderID = senderID;
+      msg.senderName = senderName;
+      msg.receiverID = receiverID;
+      msg.message = message;
+    });
   }
 }

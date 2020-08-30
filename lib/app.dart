@@ -61,6 +61,7 @@ class AppState extends State<App> {
         home: home(),
         routes: routes(),
         theme: ThemeData(
+            fontFamily: 'Merriweather',
             primaryColor: primaryColor,
             scaffoldBackgroundColor: scaffoldBackgroundColor,
             floatingActionButtonTheme:
