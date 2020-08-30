@@ -6,7 +6,6 @@ import 'screens/home.dart';
 import 'screens/login.dart';
 import 'models/user-model.dart';
 import 'style.dart';
-import 'routes.dart';
 
 class App extends StatefulWidget {
   @override
@@ -48,7 +47,7 @@ class AppState extends State<App> {
 
   Widget home() {
     if (loggedIn) {
-      return Home();
+      return Home(currentUser: user);
     } else {
       return Login();
     }
@@ -59,7 +58,6 @@ class AppState extends State<App> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: home(),
-        routes: routes(),
         theme: ThemeData(
             fontFamily: 'Merriweather',
             primaryColor: primaryColor,

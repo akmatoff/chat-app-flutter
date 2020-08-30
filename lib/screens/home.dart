@@ -1,10 +1,17 @@
 import 'package:chatAppFlutter/models/chat-model.dart';
+import 'package:chatAppFlutter/models/user-model.dart';
 import 'package:chatAppFlutter/services/socket-service.dart';
+
 import 'package:flutter/material.dart';
 
 import '../main.dart';
+import 'users.dart';
 
 class Home extends StatefulWidget {
+  final User currentUser;
+
+  Home({this.currentUser});
+
   @override
   HomeState createState() => HomeState();
 }
@@ -27,7 +34,8 @@ class HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.search),
             iconSize: 30.0,
-            onPressed: () => Navigator.of(context).pushNamed("/Users"),
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) => Users())),
           )
         ]),
         body: Container(

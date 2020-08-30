@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chatAppFlutter/models/user-model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'register.dart';
 import '../style.dart';
 import '../widgets/widgets.dart';
+import 'screens.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class LoginState extends State<Login> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   SharedPreferences sharedPreferences;
+  User currentUser;
 
   String apiURL = 'https://chat-app-nodejs.akmatoff.repl.co';
 
@@ -43,9 +46,10 @@ class LoginState extends State<Login> {
             if (res != null && username != '' && password != '') {
               sharedPreferences = await SharedPreferences.getInstance();
               sharedPreferences.setBool('logged_in', true);
-              sharedPreferences.setString('user', jsonEncode(res));
+              sharedPreferences.setString('token', jsonEncode(res));
               print(res);
-              Navigator.pushReplacementNamed(context, '/Home');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (BuildContext context) => Home()));
             } else {
               alertDialog('Ошибка при авторизации',
                   'Неверный логин или пароль.', context);

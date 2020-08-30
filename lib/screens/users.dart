@@ -12,7 +12,6 @@ class Users extends StatefulWidget {
 
 class UsersState extends State<Users> {
   final searchController = TextEditingController();
-  // UsersFutureBuilder usersFutureBuilder = UsersFutureBuilder();
   UsersService usersService = UsersService();
   List<User> users;
 
