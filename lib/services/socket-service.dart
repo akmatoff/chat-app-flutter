@@ -25,19 +25,21 @@ class SocketService {
     Chat chat;
     this.socket.on('receive-message', (msg) {
       sender = User(userID: msg.senderID, username: msg.senderName);
-      message = Message(senderID: sender.userID, text: msg.text);
-      chat = Chat(messages: [message], users: {'sender': sender});
+      message = Message(
+          senderName: msg.senderName,
+          receiverName: msg.receiverName,
+          text: msg.text);
+      chat = Chat(users: {'sender': sender});
+      chat.messages.add(message);
       chats.add(chat);
     });
     return chats;
   }
 
-  sendMessage(
-      {int senderID, String senderName, int receiverID, String message}) {
+  sendMessage({String senderName, String receiverName, String message}) {
     this.socket.emit('send-message', (msg) {
-      msg.senderID = senderID;
       msg.senderName = senderName;
-      msg.receiverID = receiverID;
+      msg.receiverName = receiverName;
       msg.message = message;
 
       print('sending message: $msg.senderName, $msg.message');

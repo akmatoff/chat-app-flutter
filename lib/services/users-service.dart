@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 class UsersService {
   String usersUrl = 'https://chat-app-nodejs.akmatoff.repl.co/user/users';
   List<User> users = [];
+  User currentUser;
 
   void getUsersFiltered(String username) async {
     Response res = await get(usersUrl + '?username=' + username, headers: {
@@ -18,6 +19,11 @@ class UsersService {
 
       List<dynamic> bodyUsers = body['users'].toList();
       users = bodyUsers.map((dynamic item) => User.fromJson(item)).toList();
+      currentUser = users[0];
+
+      print(users);
+      print(currentUser.userID);
+      print("USERS SERVICE: $currentUser");
     } else {
       throw res.statusCode;
     }

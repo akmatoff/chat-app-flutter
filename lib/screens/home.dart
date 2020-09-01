@@ -1,5 +1,4 @@
 import 'package:chatAppFlutter/models/chat-model.dart';
-import 'package:chatAppFlutter/models/user-model.dart';
 import 'package:chatAppFlutter/services/socket-service.dart';
 
 import 'package:flutter/material.dart';
@@ -8,9 +7,9 @@ import '../main.dart';
 import 'users.dart';
 
 class Home extends StatefulWidget {
-  final User currentUser;
+  final String username;
 
-  Home({this.currentUser});
+  Home({this.username});
 
   @override
   HomeState createState() => HomeState();

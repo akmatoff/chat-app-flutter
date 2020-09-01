@@ -1,7 +1,7 @@
 class Message {
   String text;
-  int senderID;
-  int receiverID;
+  String senderName;
+  String receiverName;
 
-  Message({this.text, this.senderID, this.receiverID});
+  Message({this.text, this.senderName, this.receiverName});
 }

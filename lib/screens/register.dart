@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import '../widgets/widgets.dart';
+import 'login.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -14,8 +15,6 @@ class RegisterState extends State<Register> {
   final passwordConfirmController = TextEditingController();
 
   String apiURL = 'https://chat-app-nodejs.akmatoff.repl.co';
-
-  // Dialog for sending message to the user if error
 
   // Sign up, send request to the API
   Future<int> signUp(String username, String password) async {
@@ -51,7 +50,8 @@ class RegisterState extends State<Register> {
               if (res == 201) {
                 alertDialog('Поздравляем!',
                     'Пользователь был создан. Авторизуйтесь!', context);
-                Navigator.of(context).pushReplacementNamed('/Home');
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => Login()));
               } else if (res == 409) {
                 alertDialog('Пользователь уже существует',
                     'Введите другой логин или авторизуйтесь.', context);

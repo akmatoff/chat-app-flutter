@@ -22,12 +22,6 @@ class UsersState extends State<Users> {
   }
 
   @override
-  void didChangeDependencies() {
-    print('Users: $users');
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

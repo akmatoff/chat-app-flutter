@@ -11,4 +11,7 @@ class User {
         username: json['username'] as String,
         about: json['about'] as String);
   }
+
+  Map<String, dynamic> toJson() =>
+      {'user_id': userID, 'username': username, 'about': about};
 }

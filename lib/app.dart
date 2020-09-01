@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
 import 'screens/home.dart';
 import 'screens/login.dart';
-import 'models/user-model.dart';
 import 'style.dart';
 
 class App extends StatefulWidget {
@@ -15,7 +13,6 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   SharedPreferences sharedPreferences;
   bool loggedIn = false;
-  User user;
 
   @override
   void initState() {
@@ -26,19 +23,12 @@ class AppState extends State<App> {
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
     // Check if authorized, no data in sharedPreferences - not authorized
-    if (sharedPreferences.getBool("logged_in") == null) {
+    if (sharedPreferences.getString("token") == null) {
       setState(() {
         loggedIn = false;
       });
     } else {
-      // Load user data from sharedPrefs
-      var userLoad = jsonDecode(sharedPreferences.getString("user"));
-      // Create an instance of user from sharedPrefs
-      user = User(
-          userID: userLoad['user_id'],
-          username: userLoad['username'],
-          about: userLoad['about']);
-
+      sharedPreferences.getString("username");
       setState(() {
         loggedIn = true;
       });
@@ -47,7 +37,7 @@ class AppState extends State<App> {
 
   Widget home() {
     if (loggedIn) {
-      return Home(currentUser: user);
+      return Home();
     } else {
       return Login();
     }

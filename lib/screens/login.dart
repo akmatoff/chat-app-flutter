@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:chatAppFlutter/models/user-model.dart';
+import 'package:chatAppFlutter/services/users-service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +19,7 @@ class LoginState extends State<Login> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   SharedPreferences sharedPreferences;
-  User currentUser;
+  UsersService usersService = UsersService();
 
   String apiURL = 'https://chat-app-nodejs.akmatoff.repl.co';
 
@@ -40,16 +40,20 @@ class LoginState extends State<Login> {
         appBar: AppBar(title: Text('Авторизация')),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            String username = usernameController.text.trim();
+            String username = usernameController.text.trim().toLowerCase();
             String password = passwordController.text.trim();
             var res = await login(username, password);
             if (res != null && username != '' && password != '') {
+              usersService.getUsersFiltered(username);
               sharedPreferences = await SharedPreferences.getInstance();
-              sharedPreferences.setBool('logged_in', true);
-              sharedPreferences.setString('token', jsonEncode(res));
+              sharedPreferences.setString("token", jsonEncode(res));
+              sharedPreferences.setString("username", username);
               print(res);
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (BuildContext context) => Home()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          Home(username: username)));
             } else {
               alertDialog('Ошибка при авторизации',
                   'Неверный логин или пароль.', context);
