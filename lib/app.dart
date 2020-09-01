@@ -13,6 +13,7 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   SharedPreferences sharedPreferences;
   bool loggedIn = false;
+  String loadusername;
 
   @override
   void initState() {
@@ -28,7 +29,7 @@ class AppState extends State<App> {
         loggedIn = false;
       });
     } else {
-      sharedPreferences.getString("username");
+      loadusername = sharedPreferences.getString("username");
       setState(() {
         loggedIn = true;
       });
@@ -37,7 +38,7 @@ class AppState extends State<App> {
 
   Widget home() {
     if (loggedIn) {
-      return Home();
+      return Home(username: loadusername);
     } else {
       return Login();
     }

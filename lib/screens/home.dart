@@ -33,8 +33,9 @@ class HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.search),
             iconSize: 30.0,
-            onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context) => Users())),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    Users(currentUsername: widget.username))),
           )
         ]),
         body: Container(

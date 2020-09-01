@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'screens.dart';
 
 class Users extends StatefulWidget {
+  final String currentUsername;
+
+  Users({this.currentUsername});
+
   @override
   UsersState createState() => UsersState();
 }
@@ -43,7 +47,8 @@ class UsersState extends State<Users> {
                     builder: (BuildContext context) => Chat(
                         userID: users[i].userID,
                         username: users[i].username,
-                        about: users[i].about))),
+                        about: users[i].about,
+                        senderName: widget.currentUsername))),
                 contentPadding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 10.0),
                 title: Text(users[i].username, style: defaultTextStyle),

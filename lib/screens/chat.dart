@@ -9,7 +9,9 @@ class Chat extends StatefulWidget {
   final String username;
   final String about;
 
-  Chat({this.userID, this.username, this.about});
+  final String senderName;
+
+  Chat({this.userID, this.username, this.about, this.senderName});
 
   @override
   _ChatState createState() => _ChatState();
@@ -72,7 +74,9 @@ class _ChatState extends State<Chat> {
 
   void submit() {
     socketService.sendMessage(
-        message: messageController.text, receiverName: widget.username);
+        message: messageController.text,
+        receiverName: widget.username,
+        senderName: widget.senderName);
     print('submit');
     messageController.text = '';
   }
