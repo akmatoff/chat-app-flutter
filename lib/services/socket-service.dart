@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:chatAppFlutter/models/chat-model.dart';
 import 'package:chatAppFlutter/models/message-model.dart';
-import 'package:chatAppFlutter/models/user-model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -20,27 +21,29 @@ class SocketService {
   }
 
   List<Chat> getChats() {
-    User sender;
     Message message;
     Chat chat;
     this.socket.on('receive-message', (msg) {
-      sender = User(userID: msg.senderID, username: msg.senderName);
+      Map<String, dynamic> data = json.decode(msg);
       message = Message(
-          senderName: msg.senderName,
-          receiverName: msg.receiverName,
-          text: msg.text);
-      chat = Chat(users: {'sender': sender});
+          senderName: data['senderName'],
+          receiverName: data['receiverName'],
+          text: data['text']);
+      chat = Chat(users: {
+        'sender': data['senderName'],
+        'receiver': data['receiverName']
+      }, messages: []);
       chat.messages.add(message);
       chats.add(chat);
     });
     return chats;
   }
 
-  sendMessage({String senderName, String receiverName, String message}) {
+  sendMessage({String senderName, String receiverName, String text}) {
     this.socket.emit('send-message', (msg) {
       msg.senderName = senderName;
       msg.receiverName = receiverName;
-      msg.message = message;
+      msg.text = text;
 
       print('sending message: $msg.senderName, $msg.message');
     });

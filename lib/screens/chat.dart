@@ -74,7 +74,7 @@ class _ChatState extends State<Chat> {
 
   void submit() {
     socketService.sendMessage(
-        message: messageController.text,
+        text: messageController.text,
         receiverName: widget.username,
         senderName: widget.senderName);
     print('submit');
